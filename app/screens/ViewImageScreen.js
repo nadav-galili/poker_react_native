@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 
-import colors from "../config/Colors";
+import colors from "../config/colors";
 
 function ViewImageScreen() {
   return (
@@ -9,9 +9,9 @@ function ViewImageScreen() {
       <View style={styles.closeIcon}></View>
       <View style={styles.deleteIcon}></View>
       <Image
-        resizeMode="cover"
+        resizeMode="contain"
         source={require("../assets/chips.jpg")}
-        style={styles.Image}
+        style={styles.image}
       />
     </View>
   );

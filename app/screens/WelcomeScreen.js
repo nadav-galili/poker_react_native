@@ -1,18 +1,23 @@
 import React from "react";
 import { StyleSheet, ImageBackground, View, Image, Text } from "react-native";
+import AppButton from "../components/AppButton";
+import colors from "../config/colors";
 
 function WelcomeScreen(props) {
   return (
     <ImageBackground
+      blurRadius={10}
       source={require("../assets/poker_bg.jpg")}
       style={styles.background}
     >
       <View style={styles.logoContainer}>
         <Image source={require("../assets/newIcon.jpeg")} style={styles.logo} />
-        <Text>Poker - Underdog</Text>
+        <Text style={styles.tagLine}>Poker - Underdog</Text>
       </View>
-      <View style={styles.loginButton}></View>
-      <View style={styles.registerButton}></View>
+      <View style={styles.buttonContainer}>
+        <AppButton title="login" />
+        <AppButton title="sign up" color="primaryPurple" />
+      </View>
     </ImageBackground>
   );
 }
@@ -23,24 +28,25 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  loginButton: {
-    width: "100%",
-    height: 70,
-    backgroundColor: "#3A86FF",
-  },
-  registerButton: {
-    width: "100%",
-    height: 70,
-    backgroundColor: "#FF006E",
+  buttonContainer: {
+    padding: 20,
+    width: "80%",
   },
   logo: {
     width: 100,
     height: 100,
+    borderRadius: 15,
   },
   logoContainer: {
     position: "absolute",
     top: 70,
     alignItems: "center",
+  },
+  tagLine: {
+    fontSize: 25,
+    fontWeight: "600",
+    paddingVertical: 20,
+    color: colors.white,
   },
 });
 
