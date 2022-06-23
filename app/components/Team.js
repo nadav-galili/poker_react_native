@@ -25,6 +25,7 @@ function Team({ name, number, image, admin, players }) {
           resizeMode="cover"
           style={styles.icon}
         />
+
         <PageHeader titleText="My Teams" />
       </View>
       <ImageBackground
@@ -56,10 +57,22 @@ function Team({ name, number, image, admin, players }) {
             <PlayerDetails image={players[5].image} name={players[5].name} />
           </View>
           <View style={styles.buttonContainer}>
-            <AppButton title="Team Stats" />
-            <AppButton title="Edit Games" color="primaryPurple" />
-            <AppButton title="Edit Team" color="primaryOrange" />
-            <AppButton title="Start A New Game" color="primaryPink" />
+            <AppButton title="Team Stats" iconName="account-group" />
+            <AppButton
+              title="Edit Games"
+              color="primaryPurple"
+              iconName="playlist-edit"
+            />
+            <AppButton
+              title="Edit Team"
+              color="primaryOrange"
+              iconName="shield-edit"
+            />
+            <AppButton
+              title="Start A New Game"
+              color="primaryPink"
+              iconName="poker-chip"
+            />
           </View>
         </View>
       </ImageBackground>

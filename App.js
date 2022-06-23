@@ -14,7 +14,7 @@ export default function App() {
   return (
     <View
       style={{
-        backgroundColor: "#eae5e5",
+        backgroundColor: colors.primaryBlue,
         padding: 20,
         paddingTop: 40,
         // paddingBottom: 200,
