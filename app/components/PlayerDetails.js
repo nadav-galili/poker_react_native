@@ -19,8 +19,7 @@ const styles = StyleSheet.create({
     // padding: 5,
     // flexDirection: "row",
     // flexWrap: "wrap",
-    // maxWidth: "40%",
-    // overflow: "hidden",
+
     padding: 5,
   },
   playerImage: {
@@ -28,8 +27,8 @@ const styles = StyleSheet.create({
     width: 40,
     borderRadius: 22,
     overflow: "hidden",
-    borderWidth: 1,
-    borderColor: colors.black,
+    borderWidth: 2,
+    borderColor: colors.primaryYellow,
     backgroundColor: colors.primaryOrange,
   },
   playerName: {
@@ -37,6 +36,7 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
     fontSize: 12,
     textAlign: "center",
+    fontWeight: "bold",
   },
 });
 

@@ -9,10 +9,11 @@ function PageHeader({ titleText }) {
 
 const styles = StyleSheet.create({
   titleText: {
-    color: colors.primaryPurple,
-    fontWeight: "900",
+    color: colors.primaryBlue,
+    fontWeight: "700",
     fontSize: 38,
-    textDecorationLine: "underline",
+    // textDecorationLine: "underline",
+    textAlign: "center",
   },
 });
 

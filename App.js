@@ -1,5 +1,5 @@
 // import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
 // import WelcomeScreen from "./app/screens/WelcomeScreen";
 
@@ -16,7 +16,8 @@ export default function App() {
       style={{
         backgroundColor: "#eae5e5",
         padding: 20,
-        paddingTop: 100,
+        paddingTop: 40,
+        // paddingBottom: 200,
       }}
     >
       <Team
@@ -43,5 +44,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  icon: {
+    // width: "10%",
+    height: 90,
+    width: 90,
+    borderRadius: 15,
+    alignSelf: "center",
   },
 });
