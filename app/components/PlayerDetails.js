@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     // padding: 5,
     // flexDirection: "row",
     // flexWrap: "wrap",
-
-    padding: 5,
+    // padding: 5,
+    paddingEnd: 5,
   },
   playerImage: {
     height: 40,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primaryOrange,
   },
   playerName: {
-    color: colors.primaryPink,
+    color: colors.white,
     textTransform: "capitalize",
     fontSize: 12,
     textAlign: "center",

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: colors.white,
     fontWeight: "700",
-    fontSize: 38,
+    fontSize: 22,
     textDecorationLine: "underline",
     textAlign: "center",
   },

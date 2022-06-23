@@ -12,11 +12,9 @@ function Team({ name, number, image, admin, players }) {
     <>
       <View
         style={{
-          flexDirection: "row",
+          // flexDirection: "row",
           // alignContent: "flex-end",
           alignSelf: "center",
-          // justifyContent: "flex-start",
-
           marginBottom: 10,
         }}
       >
@@ -46,10 +44,13 @@ function Team({ name, number, image, admin, players }) {
             <AppText style={styles.admin}>Admin: {admin}</AppText>
           </View>
           <View style={styles.players}>
-            <PlayerDetails image={players[0].image} name={players[0].name} />
+            {/* <PlayerDetails image={players[0].image} name={players[0].name} />
             <PlayerDetails image={players[1].image} name={players[1].name} />
             <PlayerDetails image={players[2].image} name={players[2].name} />
-            <PlayerDetails image={players[3].image} name={players[3].name} />
+            <PlayerDetails image={players[3].image} name={players[3].name} /> */}
+            <PlayerDetails image={players[4].image} name={players[4].name} />
+            <PlayerDetails image={players[4].image} name={players[4].name} />
+            <PlayerDetails image={players[4].image} name={players[4].name} />
             <PlayerDetails image={players[4].image} name={players[4].name} />
             <PlayerDetails image={players[5].image} name={players[5].name} />
             <PlayerDetails image={players[5].image} name={players[5].name} />
@@ -82,7 +83,7 @@ function Team({ name, number, image, admin, players }) {
 
 const styles = StyleSheet.create({
   admin: {
-    color: colors.primaryPurple,
+    color: colors.white,
     fontWeight: "bold",
     textTransform: "capitalize",
   },
@@ -99,12 +100,14 @@ const styles = StyleSheet.create({
     // backgroundColor: "rgba(0,0,0,0.5)",
   },
   icon: {
-    height: 70,
-    width: 70,
-    borderRadius: 35,
+    height: 90,
+    width: 90,
+    borderRadius: 45,
     marginRight: 10,
-    borderColor: colors.primaryPurple,
-    borderWidth: 4,
+    borderColor: colors.white,
+    borderWidth: 2,
+    alignContent: "center",
+    alignSelf: "center",
   },
   image: {
     width: "30%",
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   name: {
-    color: colors.white,
+    color: colors.primaryBlue,
     fontWeight: "bold",
   },
   number: {
