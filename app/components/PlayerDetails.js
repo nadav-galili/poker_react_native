@@ -1,15 +1,21 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, TouchableHighlight } from "react-native";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
 
 function PlayerDetails({ image, name }) {
   return (
-    <View style={styles.container}>
-      <Image source={image} resizeMode="cover" style={styles.playerImage} />
-      <AppText style={styles.playerName}>{name}</AppText>
-    </View>
+    <TouchableHighlight
+      underlayColor={colors.light}
+      onPress={() => console.log("sdsd")}
+      style={styles.players}
+    >
+      <View style={styles.container}>
+        <Image source={image} resizeMode="cover" style={styles.playerImage} />
+        <AppText style={styles.playerName}>{name}</AppText>
+      </View>
+    </TouchableHighlight>
   );
 }
 

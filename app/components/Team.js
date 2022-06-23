@@ -3,34 +3,16 @@ import { View, StyleSheet, Image, ImageBackground } from "react-native";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
-import PageHeader from "./PageHeader";
 import PlayerDetails from "./PlayerDetails";
 import AppButton from "./AppButton";
 
 function Team({ name, number, image, admin, players }) {
   return (
     <>
-      <View
-        style={{
-          // flexDirection: "row",
-          // alignContent: "flex-end",
-          alignSelf: "center",
-          marginBottom: 10,
-        }}
-      >
-        <Image
-          source={require("../assets/newIcon.jpeg")}
-          resizeMode="cover"
-          style={styles.icon}
-        />
-
-        <PageHeader titleText="My Teams" />
-      </View>
       <ImageBackground
         style={styles.team}
         source={require("../assets/casino.jpg")}
         blurRadius={4}
-        // resizeMode="repeat"
       >
         <View
           style={{
@@ -44,6 +26,7 @@ function Team({ name, number, image, admin, players }) {
             <AppText style={styles.number}>Team Number: {number}</AppText>
             <AppText style={styles.admin}>Admin: {admin}</AppText>
           </View>
+
           <View style={styles.players}>
             {/* <PlayerDetails image={players[0].image} name={players[0].name} />
             <PlayerDetails image={players[1].image} name={players[1].name} />

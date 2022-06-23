@@ -8,34 +8,10 @@ import AppButton from "./app/components/AppButton";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import Team from "./app/components/Team";
 import colors from "./app/config/colors";
+import MyTeams from "./app/screens/MyTeams";
 
 export default function App() {
-  // return <WelcomeScreen />;
-  return (
-    <View
-      style={{
-        backgroundColor: colors.primaryBlue,
-        padding: 20,
-        paddingTop: 40,
-        // paddingBottom: 200,
-      }}
-    >
-      <Team
-        name="poker @ vasili"
-        number="53312"
-        image={require("./app/assets/poker_vasili.jpeg")}
-        admin="bibs"
-        players={[
-          { name: "rami", image: require("./app/assets/rami.png") },
-          { name: "bibs", image: require("./app/assets/bibs.png") },
-          { name: "vasil", image: require("./app/assets/vasil.png") },
-          { name: "shikor", image: require("./app/assets/shikor.png") },
-          { name: "dan", image: require("./app/assets/dan.jpg") },
-          { name: "barvaz", image: require("./app/assets/barvaz.jpg") },
-        ]}
-      />
-    </View>
-  );
+  return <MyTeams />;
 }
 
 const styles = StyleSheet.create({
