@@ -30,11 +30,12 @@ function Team({ name, number, image, admin, players }) {
         style={styles.team}
         source={require("../assets/casino.jpg")}
         blurRadius={4}
-        resizeMode="cover"
+        // resizeMode="repeat"
       >
         <View
           style={{
             backgroundColor: "rgba(0,0,0,0.5)",
+            paddingTop: 10,
           }}
         >
           <View style={styles.detailsContainer}>
