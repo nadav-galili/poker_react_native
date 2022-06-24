@@ -30,12 +30,26 @@ const menuItems = [
     },
   },
   {
-    title: "My Messages",
+    title: "Join An Existing Team",
     icon: {
-      name: "email",
+      name: "plus-box",
+      backgroundColor: colors.primaryPurple,
+    },
+  },
+  {
+    title: "Create A New Team",
+    icon: {
+      name: "creation",
       backgroundColor: colors.primaryPink,
     },
   },
+  // {
+  //   title: "My Messages",
+  //   icon: {
+  //     name: "email",
+  //     backgroundColor: colors.primaryPink,
+  //   },
+  // },
 ];
 
 function AccountScreen(props) {
