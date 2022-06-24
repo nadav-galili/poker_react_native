@@ -23,10 +23,6 @@ function MyTeams() {
         players={[
           { name: "rami", image: require("../assets/rami.png") },
           { name: "bibs", image: require("../assets/bibs.png") },
-          { name: "vasil", image: require("../assets/vasil.png") },
-          { name: "shikor", image: require("../assets/shikor.png") },
-          { name: "dan", image: require("../assets/dan.jpg") },
-          { name: "barvaz", image: require("../assets/barvaz.jpg") },
         ]}
       />
     </ImageBackground>
@@ -38,3 +34,8 @@ const styles = StyleSheet.create({
 });
 
 export default MyTeams;
+
+// { name: "vasil", image: require("../assets/vasil.png") },
+// { name: "shikor", image: require("../assets/shikor.png") },
+// { name: "dan", image: require("../assets/dan.jpg") },
+// { name: "barvaz", image: require("../assets/barvaz.jpg") },

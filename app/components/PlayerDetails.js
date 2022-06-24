@@ -21,11 +21,6 @@ function PlayerDetails({ image, name }) {
 
 const styles = StyleSheet.create({
   container: {
-    // flexDirection: "column",
-    // padding: 5,
-    // flexDirection: "row",
-    // flexWrap: "wrap",
-    // padding: 5,
     paddingEnd: 5,
   },
   playerImage: {

@@ -9,9 +9,10 @@ import WelcomeScreen from "./app/screens/WelcomeScreen";
 import Team from "./app/components/Team";
 import colors from "./app/config/colors";
 import MyTeams from "./app/screens/MyTeams";
+import AccountScreen from "./app/screens/AccountScreen";
 
 export default function App() {
-  return <MyTeams />;
+  return <AccountScreen />;
 }
 
 const styles = StyleSheet.create({

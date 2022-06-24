@@ -28,18 +28,18 @@ function Team({ name, number, image, admin, players }) {
           </View>
 
           <View style={styles.players}>
-            {/* <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
             <PlayerDetails image={players[1].image} name={players[1].name} />
-            <PlayerDetails image={players[2].image} name={players[2].name} />
-            <PlayerDetails image={players[3].image} name={players[3].name} /> */}
-            <PlayerDetails image={players[4].image} name={players[4].name} />
+            {/* <PlayerDetails image={players[2].image} name={players[2].name} />
+            <PlayerDetails image={players[3].image} name={players[3].name} /> 
+             <PlayerDetails image={players[4].image} name={players[4].name} />
             <PlayerDetails image={players[4].image} name={players[4].name} />
             <PlayerDetails image={players[4].image} name={players[4].name} />
             <PlayerDetails image={players[4].image} name={players[4].name} />
             <PlayerDetails image={players[5].image} name={players[5].name} />
             <PlayerDetails image={players[5].image} name={players[5].name} />
             <PlayerDetails image={players[5].image} name={players[5].name} />
-            <PlayerDetails image={players[5].image} name={players[5].name} />
+            <PlayerDetails image={players[5].image} name={players[5].name} />  */}
           </View>
           <View style={styles.buttonContainer}>
             <AppButton title="Team Stats" iconName="account-group" />
