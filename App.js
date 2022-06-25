@@ -11,9 +11,10 @@ import colors from "./app/config/colors";
 import MyTeams from "./app/screens/MyTeams";
 import AccountScreen from "./app/screens/AccountScreen";
 import LoginScreen from "./app/screens/LoginScreen";
+import SignInScreen from "./app/screens/SignInScreen";
 
 export default function App() {
-  return <LoginScreen />;
+  return <SignInScreen />;
 }
 
 const styles = StyleSheet.create({
