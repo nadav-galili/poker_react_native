@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Image,
@@ -33,15 +33,6 @@ const validationSchema = Yup.object().shape({
 
 function SignInScreen() {
   const [imageUri, setImageUri] = useState();
-  const requestPermission = async () => {
-    const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!granted) {
-      alert("Permission Denied");
-    }
-  };
-  useEffect(() => {
-    requestPermission();
-  }, []);
 
   return (
     <Screen style={styles.container}>
