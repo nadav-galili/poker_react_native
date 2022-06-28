@@ -8,6 +8,7 @@ import {
   Button,
 } from "react-native";
 import * as Yup from "yup";
+import ImageInput from "../components/forms/ImageInput";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
@@ -19,19 +20,19 @@ import Icon from "../components/Icon";
 
 import Screen from "../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
-import FormImagePicker from "../components/forms/FormImagePicker";
+// import FormImagePicker from "../components/forms/FormImagePicker";
 import AppIcon from "../components/AppIcon";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(6).label("Password"),
-  image: Yup.array().min(0).max(1, "Only one image is allowed."),
+  image: Yup.string().min(0).max(1, "Only one image is allowed."),
   nickName: Yup.string().required().min(2).label("NickName"),
+  kkk: Yup.string(),
 });
 
 function SignInScreen() {
-  // const [imageUri, setImageUri] = useState();
-  // console.log("fff", imageUris[0]);
+  const [imageUri, setImageUri] = useState();
   const requestPermission = async () => {
     const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!granted) {
@@ -42,15 +43,6 @@ function SignInScreen() {
     requestPermission();
   }, []);
 
-  // const selectImage = async () => {
-  //   try {
-  //     const result = await ImagePicker.launchImageLibraryAsync();
-
-  //     if (!result.cancelled) setImageUri(result.uri);
-  //   } catch (error) {
-  //     console.log("error readinglll image", error);
-  //   }
-  // };
   return (
     <Screen style={styles.container}>
       <ImageBackground
@@ -59,8 +51,8 @@ function SignInScreen() {
       >
         <AppIcon titleText="Sign In Form" />
         <AppForm
-          initialValues={{ email: "", password: "", images: "" }}
-          onSubmit={(values) => console.log(values)}
+          initialValues={{ email: "", password: "", image: "" }}
+          onSubmit={(values) => console.log("values", values)}
           validationSchema={validationSchema}
         >
           <AppFormField
@@ -103,12 +95,15 @@ function SignInScreen() {
             onPress={selectImage}
             style={{ width: 100, height: 100 }}
           /> */}
-          <FormImagePicker name="image" />
+          {/* <FormImagePicker name="image" /> */}
           {/* <Image
             source={{ uri: imageUri }}
             style={{ width: 100, height: 100, margin: 20 }}
           /> */}
-
+          <ImageInput
+            imageUri={imageUri}
+            onChangeImage={(uri) => setImageUri(uri)}
+          />
           <SubmitButton title="Sign In" style={{ padding: 30 }} />
         </AppForm>
       </ImageBackground>
