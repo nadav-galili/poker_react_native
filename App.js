@@ -21,11 +21,13 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    screenOptions={{
-      headerStyle: { backgroundColor: colors.primaryPurple },
-      headerTintColor: colors.white,
-      // headerShown: false,
-    }}
+    screenOptions={
+      {
+        // headerStyle: { backgroundColor: colors.primaryPurple },
+        // headerTintColor: colors.white,
+        // headerShown: false,
+      }
+    }
   >
     <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
@@ -40,21 +42,44 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => (
   <Tab.Navigator
     screenOptions={{
-      activeBackgroundColor: "tomato",
-      activeTintcolor: "white",
+      tabBarActiveBackgroundColor: colors.primaryPurple,
+      tabBarActiveTintColor: "white",
+      tabBarInactiveTintColor: colors.primaryBlue,
       headerShown: false,
     }}
   >
     <Tab.Screen
-      name="Feed"
-      component={WelcomeScreen}
+      name="Home"
+      component={AccountScreen}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons name="home" size={size} color={color} />
         ),
       }}
     />
-    <Tab.Screen name="fff" component={SignInScreen} />
+    <Tab.Screen
+      name="My Teams"
+      component={MyTeams}
+      options={{
+        tabBarIcon: ({ size, color }) => (
+          <MaterialCommunityIcons
+            name="account-group"
+            size={size}
+            color={color}
+          />
+        ),
+      }}
+    />
+    {/* todo-my account screen */}
+    <Tab.Screen
+      name="My Account"
+      component={AccountScreen}
+      options={{
+        tabBarIcon: ({ size, color }) => (
+          <MaterialCommunityIcons name="poker-chip" size={size} color={color} />
+        ),
+      }}
+    />
   </Tab.Navigator>
 );
 export default function App() {
