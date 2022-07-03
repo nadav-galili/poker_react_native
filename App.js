@@ -16,6 +16,9 @@ import MyTeams from "./app/screens/MyTeams";
 import AccountScreen from "./app/screens/AccountScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import SignInScreen from "./app/screens/SignInScreen";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import AppNavigator from "./app/navigation/AppNavigator";
+import navigationTheme from "./app/navigation/navigationTheme";
 
 const Stack = createStackNavigator();
 
@@ -72,8 +75,8 @@ const TabNavigator = () => (
     />
     {/* todo-my account screen */}
     <Tab.Screen
-      name="My Account"
-      component={AccountScreen}
+      name="Login"
+      component={WelcomeScreen}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons name="poker-chip" size={size} color={color} />
@@ -84,24 +87,16 @@ const TabNavigator = () => (
 );
 export default function App() {
   return (
-    <NavigationContainer>
-      <TabNavigator />
+    <NavigationContainer
+    theme={navigationTheme}
+    >
+    {/* if user not logged in -render authnavigator, 
+    if islogged in render app navigator */}
+      {/* <AuthNavigator/> */}
+      <AppNavigator />
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  icon: {
-    // width: "10%",
-    height: 90,
-    width: 90,
-    borderRadius: 15,
-    alignSelf: "center",
-  },
-});
+
+
