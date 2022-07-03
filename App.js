@@ -2,6 +2,8 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
 // import WelcomeScreen from "./app/screens/WelcomeScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import AppText from "./app/components/AppText";
 import AppButton from "./app/components/AppButton";
@@ -12,9 +14,24 @@ import MyTeams from "./app/screens/MyTeams";
 import AccountScreen from "./app/screens/AccountScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import SignInScreen from "./app/screens/SignInScreen";
+import Screen from "./app/components/Screen";
 
 export default function App() {
-  return <SignInScreen />;
+  const Stack = createStackNavigator();
+  const StackNavigator = () => (
+    <Stack.Navigator>
+      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="SignInScreen" component={SignInScreen} />
+      <Stack.Screen name="AccountScreen" component={AccountScreen} />
+      <Stack.Screen name="MyTeams" component={MyTeams} />
+    </Stack.Navigator>
+  );
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({

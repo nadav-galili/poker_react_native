@@ -1,26 +1,16 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Image,
-  ImageBackground,
-  View,
-  Text,
-  Button,
-} from "react-native";
+import { StyleSheet, ImageBackground } from "react-native";
 import * as Yup from "yup";
 import ImageInput from "../components/forms/ImageInput";
-import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
 
-import Icon from "../components/Icon";
 // import {
 //   GoogleSignin,
 //   GoogleSigninButton,
-// } from "@react-native-community/google-signin";
+//   statusCodes,
+// } from "@react-native-google-signin/google-signin";
 
 import Screen from "../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
-// import FormImagePicker from "../components/forms/FormImagePicker";
 import AppIcon from "../components/AppIcon";
 
 const validationSchema = Yup.object().shape({
@@ -28,22 +18,26 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(6).label("Password"),
   image: Yup.string().min(0).max(1, "Only one image is allowed."),
   nickName: Yup.string().required().min(2).label("NickName"),
-  kkk: Yup.string(),
 });
 
 function SignInScreen() {
   const [imageUri, setImageUri] = useState();
 
+  const onSubmit = async (values, onsubmit) => {
+    console.log(values);
+    // onsubmit();
+  };
+
   return (
-    <Screen style={styles.container}>
+    <Screen >
       <ImageBackground
         source={require("../assets/17450.jpg")}
         style={{ height: "100%" }}
       >
-        <AppIcon titleText="Sign In Form" />
+        <AppIcon titleText="Sign In" />
         <AppForm
-          initialValues={{ email: "", password: "", image: "" }}
-          onSubmit={(values) => console.log("values", values)}
+          initialValues={{ email: "", password: "", nickName: "", image: "" }}
+          onSubmit={onSubmit}
           validationSchema={validationSchema}
         >
           <AppFormField
@@ -80,18 +74,8 @@ function SignInScreen() {
             onPress={_signIn}
             disabled={state.isSigninInProgress}
           /> */}
-          {/* <Button
-            // name="images"
-            title="Select Image"
-            onPress={selectImage}
-            style={{ width: 100, height: 100 }}
-          /> */}
-          {/* <FormImagePicker name="image" /> */}
-          {/* <Image
-            source={{ uri: imageUri }}
-            style={{ width: 100, height: 100, margin: 20 }}
-          /> */}
           <ImageInput
+            name="image"
             imageUri={imageUri}
             onChangeImage={(uri) => setImageUri(uri)}
           />
@@ -102,23 +86,6 @@ function SignInScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    // paddingBottom: 50,
-    // paddingTop: 70,
-    // flex: 2,
-  },
-  icon: {
-    // marginTop: 160,
-    // paddingTop: 100,
-  },
-  //   logo: {
-  //     width: 80,
-  //     height: 80,
-  //     alignSelf: "center",
-  //     marginTop: 50,
-  //     marginBottom: 20,
-  //   },
-});
+
 
 export default SignInScreen;
