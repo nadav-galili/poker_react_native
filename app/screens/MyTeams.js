@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground ,ScrollView} from "react-native";
 
 import Team from "../components/Team";
 import AppIcon from "../components/AppIcon";
@@ -14,6 +14,7 @@ function MyTeams() {
         paddingTop: 40,
       }}
     >
+      <ScrollView>
       <AppIcon titleText="My Teams" />
       <Team
         name="poker @ vasili"
@@ -21,10 +22,24 @@ function MyTeams() {
         image={require("../assets/poker_vasili.jpeg")}
         admin="bibs"
         players={[
+          { name: "diamondsssss", image: require("../assets/rami.png") },
+          { name: "bibs", image: require("../assets/bibs.png") },
+    
+        ]}
+      />
+      <Team
+        name="givataim"
+        number="55544"
+        image={require("../assets/38.jpg")}
+        admin="bibs"
+        players={[
+          { name: "rami", image: require("../assets/rami.png") },
+          { name: "rami", image: require("../assets/rami.png") },
           { name: "rami", image: require("../assets/rami.png") },
           { name: "bibs", image: require("../assets/bibs.png") },
         ]}
-      />
+        />
+        </ScrollView>
     </ImageBackground>
   );
 }
