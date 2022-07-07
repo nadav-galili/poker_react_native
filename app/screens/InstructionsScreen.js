@@ -29,14 +29,6 @@ import AppIcon from '../components/AppIcon';
         4.when you decide to end the game, fill in the text box the ammount of chips each player {"\n"}
         has 
 
-
-        
-
-
-      
-      
-      
-      
       
         </Text>
         </ScrollView>

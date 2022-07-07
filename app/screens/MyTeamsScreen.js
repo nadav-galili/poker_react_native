@@ -1,11 +1,25 @@
-import React from "react";
-import { View, StyleSheet, ImageBackground ,ScrollView} from "react-native";
+import React, { useEffect, useState } from "react";
+import {  StyleSheet, ImageBackground ,ScrollView} from "react-native";
 
-import Team from "../components/Team";
 import AppIcon from "../components/AppIcon";
-import colors from "../config/colors";
+import Team from "../components/Team";
+import teamsApi from '../api/teams';
+
 
 function MyTeams() {
+  const [teams, setTeams] = useState([]);
+
+  useEffect(() => {
+    loadTeams();
+  },[])
+
+  const loadTeams = async () => { 
+    const response = await teamsApi.getTeams();
+    // console.log(response)
+    setTeams(response.data);
+    console.log(teams)
+  }
+
   return (
     <ImageBackground
       source={require("../assets/17450.jpg")}
