@@ -25,19 +25,21 @@ const menuItems = [
     },
     targetScreen:routes.MY_TEAMS
   },
-  // {
-  //   title: "Personal Stats & Profile",
-  //   icon: {
-  //     name: "account-outline",
-  //     backgroundColor: colors.primaryOrange,
-  //   },
-  // },
+  {
+    title: "Personal Stats & Profile",
+    icon: {
+      name: "account-outline",
+      backgroundColor: colors.primaryOrange,
+    },
+    targetScreen:routes.PERSONAL_STATS
+  },
   // {
   //   title: "Join An Existing Team",
   //   icon: {
   //     name: "plus-box",
   //     backgroundColor: colors.primaryPurple,
   //   },
+  //   targetScreen:routes.JOIN_TEAM
   // },
   // {
   //   title: "Create A New Team",
@@ -45,7 +47,9 @@ const menuItems = [
   //     name: "creation",
   //     backgroundColor: colors.primaryPink,
   //   },
+  //   targetScreen:routes.CREATE_TEAM
   // },
+
   // {
   //   title: "My Messages",
   //   icon: {
