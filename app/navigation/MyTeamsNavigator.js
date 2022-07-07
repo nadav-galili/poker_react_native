@@ -1,12 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import MyTeams from "../screens/MyTeams";
+import MyTeamsScreen from "../screens/MyTeamsScreen";
 
 const Stack = createStackNavigator();
 
 const MyTeamsNavigator = () => (
     <Stack.Navigator>
-  <Stack.Screen name="My Teams" component={MyTeams} />
+  <Stack.Screen name="MyTeamsScreen" component={MyTeamsScreen} />
     </Stack.Navigator>
 )
 

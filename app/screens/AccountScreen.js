@@ -6,6 +6,7 @@ import ListItem from "../components/ListItem";
 import ListItemSeparatorComponent from "../components/ListItemSeparator";
 import colors from "../config/colors";
 import Icon from "../components/Icon";
+import routes from "../navigation/routes";
 
 const menuItems = [
   {
@@ -14,6 +15,7 @@ const menuItems = [
       name: "format-list-bulleted",
       backgroundColor: colors.primaryBlue,
     },
+    targetScreen: routes.INSTRUCTIONS_SCREEN
   },
   {
     title: "My Teams",
@@ -21,28 +23,29 @@ const menuItems = [
       name: "account-group-outline",
       backgroundColor: colors.primaryPurple,
     },
+    targetScreen:routes.MY_TEAMS
   },
-  {
-    title: "Personal Stats & Profile",
-    icon: {
-      name: "account-outline",
-      backgroundColor: colors.primaryOrange,
-    },
-  },
-  {
-    title: "Join An Existing Team",
-    icon: {
-      name: "plus-box",
-      backgroundColor: colors.primaryPurple,
-    },
-  },
-  {
-    title: "Create A New Team",
-    icon: {
-      name: "creation",
-      backgroundColor: colors.primaryPink,
-    },
-  },
+  // {
+  //   title: "Personal Stats & Profile",
+  //   icon: {
+  //     name: "account-outline",
+  //     backgroundColor: colors.primaryOrange,
+  //   },
+  // },
+  // {
+  //   title: "Join An Existing Team",
+  //   icon: {
+  //     name: "plus-box",
+  //     backgroundColor: colors.primaryPurple,
+  //   },
+  // },
+  // {
+  //   title: "Create A New Team",
+  //   icon: {
+  //     name: "creation",
+  //     backgroundColor: colors.primaryPink,
+  //   },
+  // },
   // {
   //   title: "My Messages",
   //   icon: {
@@ -52,7 +55,7 @@ const menuItems = [
   // },
 ];
 
-function AccountScreen(props) {
+function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <ImageBackground
@@ -67,22 +70,23 @@ function AccountScreen(props) {
           />
         </View>
         <View style={styles.container}>
-          <FlatList
-            data={menuItems}
-            keyExtractor={(menuItem) => menuItem.title}
-            ItemSeparatorComponent={ListItemSeparatorComponent}
-            renderItem={({ item }) => (
-              <ListItem
-                title={item.title}
-                IconComponent={
-                  <Icon
-                    name={item.icon.name}
-                    backgroundColor={item.icon.backgroundColor}
+        <FlatList
+          data={menuItems}
+          keyExtractor={(menuItem) => menuItem.title}
+          ItemSeparatorComponent={ListItemSeparatorComponent}
+          renderItem={({ item }) => (
+            <ListItem
+              title={item.title}
+              IconComponent={
+                <Icon
+                  name={item.icon.name}
+                  backgroundColor={item.icon.backgroundColor}
                   />
                 }
-              />
-            )}
-          />
+                onPress={() => navigation.navigate(item.targetScreen)}
+                />
+                )}
+        />
         </View>
         <ListItem
           title="Log Out"

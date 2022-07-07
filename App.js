@@ -12,7 +12,7 @@ import AppButton from "./app/components/AppButton";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import Team from "./app/components/Team";
 import colors from "./app/config/colors";
-import MyTeams from "./app/screens/MyTeams";
+import MyTeamsScreen from "./app/screens/MyTeamsScreen";
 import AccountScreen from "./app/screens/AccountScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import SignInScreen from "./app/screens/SignInScreen";
@@ -36,7 +36,7 @@ const StackNavigator = () => (
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="SignInScreen" component={SignInScreen} />
     <Stack.Screen name="AccountScreen" component={AccountScreen} />
-    <Stack.Screen name="MyTeams" component={MyTeams} />
+    <Stack.Screen name="MyTeamsScreen" component={MyTeamsScreen} />
     {/* <Stack.Screen name="MyTeams" component={MyTeams} options={({route})=>({title:route.params.id})} /> */}
   </Stack.Navigator>
 );
@@ -62,7 +62,7 @@ const TabNavigator = () => (
     />
     <Tab.Screen
       name="My Teams"
-      component={MyTeams}
+      component={MyTeamsScreen}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons
