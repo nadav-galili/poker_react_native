@@ -17,6 +17,9 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen() {
+  const onSubmit = (values) => {
+    console.log(values);
+  };
   return (
     <Screen style={styles.container}>
       <ImageBackground
@@ -26,7 +29,7 @@ function LoginScreen() {
         <AppIcon titleText="Login Form" />
         <AppForm
           initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={onSubmit}
           validationSchema={validationSchema}
         >
           <AppFormField

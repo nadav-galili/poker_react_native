@@ -92,8 +92,8 @@ export default function App() {
     >
     {/* if user not logged in -render authnavigator, 
     if islogged in render app navigator */}
-      {/* <AuthNavigator/> */}
-      <AppNavigator />
+      <AuthNavigator/>
+      {/* <AppNavigator /> */}
     </NavigationContainer>
   );
 }

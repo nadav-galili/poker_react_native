@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet, ImageBackground } from "react-native";
 import * as Yup from "yup";
 import ImageInput from "../components/forms/ImageInput";
+import { authentication } from "../firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 // import {
 //   GoogleSignin,
@@ -24,12 +26,21 @@ function SignInScreen() {
   const [imageUri, setImageUri] = useState();
 
   const onSubmit = async (values, onsubmit) => {
-    console.log(values);
+    createUserWithEmailAndPassword(
+      authentication,
+      values.email,
+      values.password
+    )
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log(user.email);
+      })
+      .catch((error) => alert(error.message));
     // onsubmit();
   };
 
   return (
-    <Screen >
+    <Screen>
       <ImageBackground
         source={require("../assets/17450.jpg")}
         style={{ height: "100%" }}
@@ -85,7 +96,5 @@ function SignInScreen() {
     </Screen>
   );
 }
-
-
 
 export default SignInScreen;
