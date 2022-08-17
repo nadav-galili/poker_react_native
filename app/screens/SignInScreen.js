@@ -32,13 +32,9 @@ function SignInScreen() {
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log("aaaaa  ", user);
-        alert(user);
+        console.log("aaaaa", user.email);
       })
       .catch((error) => alert(error.message));
-    // console.log(values);
-
-    // console.log("aaa", auth);
   };
 
   return (

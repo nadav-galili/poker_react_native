@@ -4,6 +4,7 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignInScreen from "../screens/SignInScreen";
 import AccountScreen from "../screens/AccountScreen";
+import MyTeamsScreen from "../screens/MyTeamsScreen";
 
 import navigationTheme from "./navigationTheme";
 
@@ -18,8 +19,8 @@ const AuthNavigator = () => (
     />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="SignInScreen" component={SignInScreen} />
-    {/* <Stack.Screen name="AccountScreen" component={AccountScreen} />
-    <Stack.Screen name="MyTeamsScreen" component={MyTeamsScreen} /> */}
+    <Stack.Screen name="MyTeamsScreen" component={MyTeamsScreen} />
+    {/* <Stack.Screen name="AccountScreen" component={AccountScreen} /> */}
   </Stack.Navigator>
 );
 

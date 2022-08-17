@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, ImageBackground, View, Image, Text } from "react-native";
 import AppButton from "../components/AppButton";
 import colors from "../config/colors";
+import { auth } from "../api/firebase";
 
 function WelcomeScreen({ navigation }) {
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("user", user);
+        navigation.navigate("MyTeamsScreen");
+      } else {
+        console.log("no user");
+      }
+    });
+    return unsubscribe;
+  }, []);
   return (
     <ImageBackground
       blurRadius={10}
