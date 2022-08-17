@@ -6,7 +6,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import "./app/api/firebase"; // Import the Firebase API configuration file
+// import firebase from "firebase";
+// import {
+//   API_KEY,
+//   AUTH_DOMAIN,
+//   DATABASE_URL,
+//   PROJECT_ID,
+//   STORAGE_BUCKET,
+//   MESSAGE_SENDER_ID,
+//   APP_ID,
+//   MEASUREMENT_ID,
+// } from "@env";
 import AppText from "./app/components/AppText";
 import AppButton from "./app/components/AppButton";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
@@ -21,7 +32,17 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
 
 const Stack = createStackNavigator();
-
+// const firebaseConfig = {
+//   apiKey: API_KEY,
+//   authDomain: AUTH_DOMAIN,
+//   databaseURL: DATABASE_URL,
+//   projectId: PROJECT_ID,
+//   storageBucket: STORAGE_BUCKET,
+//   messagingSenderId: MESSAGE_SENDER_ID,
+//   appId: APP_ID,
+//   measurementId: MEASUREMENT_ID,
+// };
+// firebase.initializeApp(firebaseConfig);
 const StackNavigator = () => (
   <Stack.Navigator
     screenOptions={
@@ -87,16 +108,11 @@ const TabNavigator = () => (
 );
 export default function App() {
   return (
-    <NavigationContainer
-    theme={navigationTheme}
-    >
-    {/* if user not logged in -render authnavigator, 
+    <NavigationContainer theme={navigationTheme}>
+      {/* if user not logged in -render authnavigator, 
     if islogged in render app navigator */}
-      <AuthNavigator/>
+      <AuthNavigator />
       {/* <AppNavigator /> */}
     </NavigationContainer>
   );
 }
-
-
-

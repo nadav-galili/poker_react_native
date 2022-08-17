@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { StyleSheet, ImageBackground } from "react-native";
 import * as Yup from "yup";
 import ImageInput from "../components/forms/ImageInput";
-import { authentication } from "../firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../api/firebase";
+// import { authentication } from "../firebase/firebase";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 
 // import {
 //   GoogleSignin,
@@ -26,17 +27,18 @@ function SignInScreen() {
   const [imageUri, setImageUri] = useState();
 
   const onSubmit = async (values, onsubmit) => {
-    createUserWithEmailAndPassword(
-      authentication,
-      values.email,
-      values.password
-    )
+    console.log("sss", auth);
+    auth
+      .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log(user.email);
+        console.log("aaaaa  ", user);
+        alert(user);
       })
       .catch((error) => alert(error.message));
-    // onsubmit();
+    // console.log(values);
+
+    // console.log("aaa", auth);
   };
 
   return (
@@ -78,13 +80,6 @@ function SignInScreen() {
             secureTextEntry
             textContentType="password"
           />
-          {/* <GoogleSigninButton
-            style={{ width: 192, height: 48 }}
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={_signIn}
-            disabled={state.isSigninInProgress}
-          /> */}
           <ImageInput
             name="image"
             imageUri={imageUri}
