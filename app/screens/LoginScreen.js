@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Image, ImageBackground } from "react-native";
 import * as Yup from "yup";
 import { auth } from "../api/firebase";
@@ -9,10 +9,21 @@ import AppIcon from "../components/AppIcon";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(6).label("Password"),
+  password: Yup.string().required().min(4).label("Password"),
 });
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("user", user);
+        navigation.navigate("MyTeamsScreen");
+      } else {
+        console.log("no user");
+      }
+    });
+    return unsubscribe;
+  }, []);
   const onSubmit = (values) => {
     auth
       .signInWithEmailAndPassword(values.email, values.password)
@@ -20,7 +31,7 @@ const LoginScreen = () => {
         const user = userCredentials.user;
         console.log("Logged in with :", user.email);
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert("Wrong Email Or Password"));
   };
   return (
     <Screen style={styles.container}>

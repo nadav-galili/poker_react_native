@@ -9,7 +9,7 @@ function WelcomeScreen({ navigation }) {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         console.log("user", user);
-        navigation.navigate("MyTeamsScreen");
+        navigation.replace("MyTeamsScreen");
       } else {
         console.log("no user");
       }

@@ -6,6 +6,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { auth } from "./app/api/firebase";
 import "./app/api/firebase"; // Import the Firebase API configuration file
 // import firebase from "firebase";
 // import {
@@ -97,11 +99,34 @@ const TabNavigator = () => (
   </Tab.Navigator>
 );
 export default function App() {
+  const [logged, setLogged] = useState(false);
+  useEffect(() => {
+    console.log("loo", logged);
+    // auth
+    //   .signInWithEmailAndPassword(values.email, values.password)
+    //   .then((userCredentials) => {
+    //     const user = userCredentials.user;
+    //     setLogged(true);
+    //     console.log("Logged in with :", user.email);
+    //   })
+    //   .catch((error) => alert("Wrong Email Or Password"));
+
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("user", user);
+        // navigation.navigate("MyTeamsScreen");
+      } else {
+        console.log("no user");
+      }
+    });
+    return unsubscribe;
+  }, []);
+
   return (
     <NavigationContainer theme={navigationTheme}>
       {/* if user not logged in -render authnavigator, 
     if islogged in render app navigator */}
-      <AuthNavigator />
+      {!logged ? <AuthNavigator /> : <AppNavigator />}
       {/* <AppNavigator /> */}
     </NavigationContainer>
   );
