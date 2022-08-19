@@ -48,73 +48,68 @@ const StackNavigator = () => (
     <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="SignInScreen" component={SignInScreen} />
-    <Stack.Screen name="AccountScreen" component={AccountScreen} />
+    <Stack.Screen
+      name="AccountScreen"
+      component={AccountScreen}
+      screen={WelcomeScreen}
+    />
     <Stack.Screen name="MyTeamsScreen" component={MyTeamsScreen} />
     {/* <Stack.Screen name="MyTeams" component={MyTeams} options={({route})=>({title:route.params.id})} /> */}
   </Stack.Navigator>
 );
 
 const Tab = createBottomTabNavigator();
-const TabNavigator = () => (
-  <Tab.Navigator
-    screenOptions={{
-      tabBarActiveBackgroundColor: colors.primaryPurple,
-      tabBarActiveTintColor: "white",
-      tabBarInactiveTintColor: colors.primaryBlue,
-      headerShown: false,
-    }}
-  >
-    <Tab.Screen
-      name="Home"
-      component={AccountScreen}
-      options={{
-        tabBarIcon: ({ size, color }) => (
-          <MaterialCommunityIcons name="home" size={size} color={color} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="My Teams"
-      component={MyTeamsScreen}
-      options={{
-        tabBarIcon: ({ size, color }) => (
-          <MaterialCommunityIcons
-            name="account-group"
-            size={size}
-            color={color}
-          />
-        ),
-      }}
-    />
-    {/* todo-my account screen */}
-    <Tab.Screen
-      name="Login"
-      component={WelcomeScreen}
-      options={{
-        tabBarIcon: ({ size, color }) => (
-          <MaterialCommunityIcons name="poker-chip" size={size} color={color} />
-        ),
-      }}
-    />
-  </Tab.Navigator>
-);
+// const TabNavigator = () => (
+//   <Tab.Navigator
+//     screenOptions={{
+//       tabBarActiveBackgroundColor: colors.primaryPurple,
+//       tabBarActiveTintColor: "white",
+//       tabBarInactiveTintColor: colors.primaryBlue,
+//       headerShown: false,
+//     }}
+//   >
+//     <Tab.Screen
+//       name="Home"
+//       component={AccountScreen}
+//       options={{
+//         tabBarIcon: ({ size, color }) => (
+//           <MaterialCommunityIcons name="home" size={size} color={color} />
+//         ),
+//       }}
+//     />
+//     <Tab.Screen
+//       name="My Teams"
+//       component={MyTeamsScreen}
+//       options={{
+//         tabBarIcon: ({ size, color }) => (
+//           <MaterialCommunityIcons
+//             name="account-group"
+//             size={size}
+//             color={color}
+//           />
+//         ),
+//       }}
+//     />
+//     {/* todo-my account screen */}
+//     <Tab.Screen
+//       name="Login"
+//       component={WelcomeScreen}
+//       options={{
+//         tabBarIcon: ({ size, color }) => (
+//           <MaterialCommunityIcons name="poker-chip" size={size} color={color} />
+//         ),
+//       }}
+//     />
+//   </Tab.Navigator>
+// );
 export default function App() {
   const [logged, setLogged] = useState(false);
   useEffect(() => {
     console.log("loo", logged);
-    // auth
-    //   .signInWithEmailAndPassword(values.email, values.password)
-    //   .then((userCredentials) => {
-    //     const user = userCredentials.user;
-    //     setLogged(true);
-    //     console.log("Logged in with :", user.email);
-    //   })
-    //   .catch((error) => alert("Wrong Email Or Password"));
-
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
+        setLogged(user);
         console.log("user", user);
-        // navigation.navigate("MyTeamsScreen");
       } else {
         console.log("no user");
       }
@@ -127,7 +122,6 @@ export default function App() {
       {/* if user not logged in -render authnavigator, 
     if islogged in render app navigator */}
       {!logged ? <AuthNavigator /> : <AppNavigator />}
-      {/* <AppNavigator /> */}
     </NavigationContainer>
   );
 }

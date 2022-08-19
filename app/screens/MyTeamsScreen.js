@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from "react";
-import {  StyleSheet, ImageBackground ,ScrollView} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, ImageBackground, ScrollView } from "react-native";
 
 import AppIcon from "../components/AppIcon";
 import Team from "../components/Team";
-import teamsApi from '../api/teams';
-
+import teamsApi from "../api/teams";
 
 function MyTeams() {
   const [teams, setTeams] = useState([]);
-
-  useEffect(() => {
-    loadTeams();
-  },[])
-
-  const loadTeams = async () => { 
-    const response = await teamsApi.getTeams();
-    // console.log(response)
-    setTeams(response.data);
-    console.log(teams)
-  }
 
   return (
     <ImageBackground
@@ -29,31 +17,30 @@ function MyTeams() {
       }}
     >
       <ScrollView>
-      <AppIcon titleText="My Teams" />
-      <Team
-        name="poker @ vasili"
-        number="535312"
-        image={require("../assets/poker_vasili.jpeg")}
-        admin="bibs"
-        players={[
-          { name: "diamondsssss", image: require("../assets/rami.png") },
-          { name: "bibs", image: require("../assets/bibs.png") },
-    
-        ]}
-      />
-      <Team
-        name="givataim"
-        number="55544"
-        image={require("../assets/38.jpg")}
-        admin="bibs"
-        players={[
-          { name: "rami", image: require("../assets/rami.png") },
-          { name: "rami", image: require("../assets/rami.png") },
-          { name: "rami", image: require("../assets/rami.png") },
-          { name: "bibs", image: require("../assets/bibs.png") },
-        ]}
+        <AppIcon titleText="My Teams" />
+        <Team
+          name="poker @ vasili"
+          number="535312"
+          image={require("../assets/poker_vasili.jpeg")}
+          admin="bibs"
+          players={[
+            { name: "diamondsssss", image: require("../assets/rami.png") },
+            { name: "bibs", image: require("../assets/bibs.png") },
+          ]}
         />
-        </ScrollView>
+        <Team
+          name="givataim"
+          number="55544"
+          image={require("../assets/38.jpg")}
+          admin="bibs"
+          players={[
+            { name: "rami", image: require("../assets/rami.png") },
+            { name: "rami", image: require("../assets/rami.png") },
+            { name: "rami", image: require("../assets/rami.png") },
+            { name: "bibs", image: require("../assets/bibs.png") },
+          ]}
+        />
+      </ScrollView>
     </ImageBackground>
   );
 }

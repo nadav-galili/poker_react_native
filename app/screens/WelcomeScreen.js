@@ -6,7 +6,7 @@ import { auth } from "../api/firebase";
 
 function WelcomeScreen({ navigation }) {
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const checkUserState = auth.onAuthStateChanged((user) => {
       if (user) {
         console.log("user", user);
         navigation.replace("MyTeamsScreen");
@@ -14,7 +14,7 @@ function WelcomeScreen({ navigation }) {
         console.log("no user");
       }
     });
-    return unsubscribe;
+    return checkUserState;
   }, []);
   return (
     <ImageBackground

@@ -9,7 +9,7 @@ import AppIcon from "../components/AppIcon";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  password: Yup.string().required().min(6).label("Password"),
 });
 
 const LoginScreen = ({ navigation }) => {

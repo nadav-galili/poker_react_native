@@ -3,15 +3,7 @@ import { StyleSheet, ImageBackground } from "react-native";
 import * as Yup from "yup";
 import ImageInput from "../components/forms/ImageInput";
 import { auth } from "../api/firebase";
-// import { authentication } from "../firebase/firebase";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-
-// import {
-//   GoogleSignin,
-//   GoogleSigninButton,
-//   statusCodes,
-// } from "@react-native-google-signin/google-signin";
-
+import { fireDB } from "../api/firebase";
 import Screen from "../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import AppIcon from "../components/AppIcon";
@@ -26,13 +18,18 @@ const validationSchema = Yup.object().shape({
 function SignInScreen() {
   const [imageUri, setImageUri] = useState();
 
-  const onSubmit = async (values, onsubmit) => {
-    console.log("sss", auth);
+  const onSubmit = async (values) => {
     auth
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log("aaaaa", user.email);
+        return fireDB.collection("users").doc(user.uid).set({
+          email: values.email,
+          nickName: values.nickName,
+          image: imageUri,
+        });
+        // Add user account information in Firestore to be retrieved later.
+        // await firestore().collection("users").doc(res.user.uid).set(userInfo);
       })
       .catch((error) => alert(error.message));
   };

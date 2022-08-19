@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, FlatList, ImageBackground } from "react-native";
+import { auth } from "../api/firebase";
 
-import Screen from "../components/Screen";
-import ListItem from "../components/ListItem";
-import ListItemSeparatorComponent from "../components/ListItemSeparator";
+import AuthNavigator from "../navigation/AuthNavigator";
 import colors from "../config/colors";
 import Icon from "../components/Icon";
+import ListItem from "../components/ListItem";
+import ListItemSeparatorComponent from "../components/ListItemSeparator";
 import routes from "../navigation/routes";
+import Screen from "../components/Screen";
+import WelcomeScreen from "./WelcomeScreen";
 
 const menuItems = [
   {
@@ -15,23 +18,23 @@ const menuItems = [
       name: "format-list-bulleted",
       backgroundColor: colors.primaryBlue,
     },
-    targetScreen: routes.INSTRUCTIONS_SCREEN
+    targetScreen: routes.INSTRUCTIONS_SCREEN,
   },
-  {
-    title: "My Teams",
-    icon: {
-      name: "account-group-outline",
-      backgroundColor: colors.primaryPurple,
-    },
-    targetScreen:routes.MY_TEAMS
-  },
+  // {
+  //   title: "My Teams",
+  //   icon: {
+  //     name: "account-group-outline",
+  //     backgroundColor: colors.primaryPurple,
+  //   },
+  //   targetScreen: routes.MY_TEAMS,
+  // },
   {
     title: "Personal Stats & Profile",
     icon: {
       name: "account-outline",
       backgroundColor: colors.primaryOrange,
     },
-    targetScreen:routes.PERSONAL_STATS
+    targetScreen: routes.PERSONAL_STATS,
   },
   // {
   //   title: "Join An Existing Team",
@@ -59,7 +62,14 @@ const menuItems = [
   // },
 ];
 
-function AccountScreen({ navigation }) {
+function AccountScreen({ navigation, screen }) {
+  const [user, setUser] = useState(true);
+  const logOut = async () => {
+    const signOut = await auth.signOut();
+    console.log("signOut", signOut);
+    !signOut ? setUser(false) : setUser(true);
+    !user ? navigation.navigate("Welcome") : "";
+  };
   return (
     <Screen style={styles.screen}>
       <ImageBackground
@@ -69,32 +79,33 @@ function AccountScreen({ navigation }) {
         <View style={styles.container}>
           <ListItem
             title="Barvaz"
-            subTitle="merellaw@gmail.com"
+            subTitle={auth.currentUser ? auth.currentUser.email : ""}
             image={require("../assets/barvaz.jpg")}
           />
         </View>
         <View style={styles.container}>
-        <FlatList
-          data={menuItems}
-          keyExtractor={(menuItem) => menuItem.title}
-          ItemSeparatorComponent={ListItemSeparatorComponent}
-          renderItem={({ item }) => (
-            <ListItem
-              title={item.title}
-              IconComponent={
-                <Icon
-                  name={item.icon.name}
-                  backgroundColor={item.icon.backgroundColor}
+          <FlatList
+            data={menuItems}
+            keyExtractor={(menuItem) => menuItem.title}
+            ItemSeparatorComponent={ListItemSeparatorComponent}
+            renderItem={({ item }) => (
+              <ListItem
+                title={item.title}
+                IconComponent={
+                  <Icon
+                    name={item.icon.name}
+                    backgroundColor={item.icon.backgroundColor}
                   />
                 }
                 onPress={() => navigation.navigate(item.targetScreen)}
-                />
-                )}
-        />
+              />
+            )}
+          />
         </View>
         <ListItem
           title="Log Out"
           IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+          onPress={logOut}
         />
       </ImageBackground>
     </Screen>
