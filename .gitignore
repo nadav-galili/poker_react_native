@@ -1,8 +1,2 @@
 node_modules
-app\api\
-.\app\api\
-app/api/
-./app/api/
-app/api/firebase.js
-app/api/firebase.js
 app/api/firebase.js
