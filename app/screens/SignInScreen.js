@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, ImageBackground } from "react-native";
+import { ImageBackground } from "react-native";
 import * as Yup from "yup";
 import ImageInput from "../components/forms/ImageInput";
 import { auth } from "../api/firebase";
@@ -17,21 +17,37 @@ const validationSchema = Yup.object().shape({
 
 function SignInScreen() {
   const [imageUri, setImageUri] = useState();
+  const [uploading, setuploading] = useState(false);
 
   const onSubmit = async (values) => {
     auth
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
+        //add user to users collection
         return fireDB.collection("users").doc(user.uid).set({
           email: values.email,
           nickName: values.nickName,
           image: imageUri,
         });
-        // Add user account information in Firestore to be retrieved later.
-        // await firestore().collection("users").doc(res.user.uid).set(userInfo);
       })
       .catch((error) => alert(error.message));
+  };
+
+  const uploadImage = async () => {
+    setuploading(true);
+    const response = await fetch(imageUri);
+    const blob = await response.blob();
+    const filename = imageUri.substring(imageUri.lastIndexOf("/") + 1);
+    const ref = fireDB.ref().child(filename).put(blob);
+
+    try {
+      await ref;
+    } catch (error) {
+      console.log(error);
+    }
+    setUploading(false);
+    alert("Photo Uploaded succesfully");
   };
 
   return (
@@ -59,7 +75,6 @@ function SignInScreen() {
             autoCapitalize="none"
             autoCorrect={false}
             icon="account-details"
-            // keyboardType="email-address"
             name="nickName"
             placeholder="nickName"
             textContentType="emailAddress"
