@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignInScreen from "../screens/SignInScreen";
-import AccountScreen from "../screens/AccountScreen";
+// import AccountScreen from "../screens/AccountScreen";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
 
 import navigationTheme from "./navigationTheme";

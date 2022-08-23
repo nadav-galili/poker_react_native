@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, FlatList, ImageBackground } from "react-native";
 import { auth } from "../api/firebase";
 
@@ -62,13 +62,17 @@ const menuItems = [
   // },
 ];
 
-function AccountScreen({ navigation, screen }) {
-  const [user, setUser] = useState(true);
+function AccountScreen({ navigation, screen, user }) {
+  // const [user, setUser] = useState(true);
+  const [userData, setUserData] = useState(null);
+
+  console.log("qqqqq", user);
   const logOut = async () => {
     const signOut = await auth.signOut();
     console.log("signOut", signOut);
-    !signOut ? setUser(false) : setUser(true);
-    !user ? navigation.navigate("Welcome") : "";
+    // !signOut ? setUser(false) : setUser(true);
+    // !user ? navigation.navigate("Welcome") : "";
+    navigation.navigate("Welcome");
   };
   return (
     <Screen style={styles.screen}>
@@ -79,7 +83,7 @@ function AccountScreen({ navigation, screen }) {
         <View style={styles.container}>
           <ListItem
             title="Barvaz"
-            subTitle={auth.currentUser ? auth.currentUser.email : ""}
+            subTitle={auth.currentUser ? auth.currentUser.email : "no user"}
             image={require("../assets/barvaz.jpg")}
           />
         </View>

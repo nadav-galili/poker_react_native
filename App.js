@@ -111,17 +111,18 @@ export default function App() {
         setLogged(user);
         console.log("user", user);
       } else {
+        setLogged(false);
         console.log("no user");
       }
     });
     return unsubscribe;
-  }, []);
+  }, [logged]);
 
   return (
     <NavigationContainer theme={navigationTheme}>
       {/* if user not logged in -render authnavigator, 
     if islogged in render app navigator */}
-      {!logged ? <AuthNavigator /> : <AppNavigator />}
+      {!logged ? <AuthNavigator /> : <AppNavigator user={logged} />}
     </NavigationContainer>
   );
 }

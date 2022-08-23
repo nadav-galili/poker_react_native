@@ -12,7 +12,7 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = () => (
+const AppNavigator = ({ user }) => (
   <Tab.Navigator
     screenOptions={{
       tabBarActiveBackgroundColor: colors.primaryPurple,
@@ -34,6 +34,7 @@ const AppNavigator = () => (
           />
         ),
       }}
+      user={user}
     />
     <Tab.Screen
       name="My Teams"

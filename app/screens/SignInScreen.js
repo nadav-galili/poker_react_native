@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ImageBackground } from "react-native";
 import * as Yup from "yup";
 import ImageInput from "../components/forms/ImageInput";
-import { auth } from "../api/firebase";
+import { auth, storage } from "../api/firebase";
 import { fireDB } from "../api/firebase";
 import Screen from "../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
@@ -17,13 +17,14 @@ const validationSchema = Yup.object().shape({
 
 function SignInScreen() {
   const [imageUri, setImageUri] = useState();
-  const [uploading, setuploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const onSubmit = async (values) => {
     auth
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
+        uploadImage();
         //add user to users collection
         return fireDB.collection("users").doc(user.uid).set({
           email: values.email,
@@ -35,11 +36,12 @@ function SignInScreen() {
   };
 
   const uploadImage = async () => {
-    setuploading(true);
+    setUploading(true);
     const response = await fetch(imageUri);
     const blob = await response.blob();
-    const filename = imageUri.substring(imageUri.lastIndexOf("/") + 1);
-    const ref = fireDB.ref().child(filename).put(blob);
+    // const filename = imageUri.substring(imageUri.lastIndexOf("/") + 1);
+    const filename = imageUri.split("/").pop();
+    const ref = storage.ref().child(filename).put(blob);
 
     try {
       await ref;
@@ -48,6 +50,8 @@ function SignInScreen() {
     }
     setUploading(false);
     alert("Photo Uploaded succesfully");
+    setImageUri(null);
+    // return filename;s
   };
 
   return (

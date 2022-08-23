@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    padding: 20,
+    padding: 60,
     width: "80%",
   },
   logo: {
@@ -62,10 +62,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   tagLine: {
-    fontSize: 25,
-    fontWeight: "600",
+    fontSize: 40,
+    fontWeight: "700",
     paddingVertical: 20,
     color: colors.white,
+    borderBottomWidth: 3,
+    borderBottomColor: colors.white,
   },
 });
 
