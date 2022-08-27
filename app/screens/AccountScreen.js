@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, FlatList, ImageBackground } from "react-native";
-import { auth } from "../api/firebase";
+import { auth, fireDB, storage } from "../api/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
-import AuthNavigator from "../navigation/AuthNavigator";
 import colors from "../config/colors";
 import Icon from "../components/Icon";
 import ListItem from "../components/ListItem";
 import ListItemSeparatorComponent from "../components/ListItemSeparator";
 import routes from "../navigation/routes";
 import Screen from "../components/Screen";
-import WelcomeScreen from "./WelcomeScreen";
 
 const menuItems = [
   {
@@ -45,15 +44,6 @@ const menuItems = [
   //   targetScreen:routes.JOIN_TEAM
   // },
   // {
-  //   title: "Create A New Team",
-  //   icon: {
-  //     name: "creation",
-  //     backgroundColor: colors.primaryPink,
-  //   },
-  //   targetScreen:routes.CREATE_TEAM
-  // },
-
-  // {
   //   title: "My Messages",
   //   icon: {
   //     name: "email",
@@ -62,18 +52,46 @@ const menuItems = [
   // },
 ];
 
-function AccountScreen({ navigation, screen, user }) {
-  // const [user, setUser] = useState(true);
-  const [userData, setUserData] = useState(null);
+function AccountScreen({ navigation, screen }) {
+  const [userData, setUserData] = useState({});
+  const [url, setUrl] = useState();
 
-  console.log("qqqqq", user);
   const logOut = async () => {
-    const signOut = await auth.signOut();
-    console.log("signOut", signOut);
-    // !signOut ? setUser(false) : setUser(true);
-    // !user ? navigation.navigate("Welcome") : "";
+    await auth.signOut();
     navigation.navigate("Welcome");
   };
+
+  const fetchUserDetails = () => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const docRef = doc(fireDB, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+          let imageRef = storage.ref(`/${docSnap.data().image}`);
+          imageRef
+            .getDownloadURL()
+            .then((url) => {
+              setUrl(url);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      } else {
+        console.log("no user");
+      }
+    });
+    unsubscribe();
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
   return (
     <Screen style={styles.screen}>
       <ImageBackground
@@ -82,9 +100,11 @@ function AccountScreen({ navigation, screen, user }) {
       >
         <View style={styles.container}>
           <ListItem
-            title="Barvaz"
-            subTitle={auth.currentUser ? auth.currentUser.email : "no user"}
-            image={require("../assets/barvaz.jpg")}
+            title={userData.nickName ? userData.nickName : "no user"}
+            subTitle={userData.email ? userData.email : "no email"}
+            image={{
+              uri: url,
+            }}
           />
         </View>
         <View style={styles.container}>

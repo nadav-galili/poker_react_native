@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { ImageBackground } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
 import * as Yup from "yup";
 import ImageInput from "../components/forms/ImageInput";
-import { auth, storage } from "../api/firebase";
+import { auth, storage, getDownloadURL } from "../api/firebase";
 import { fireDB } from "../api/firebase";
 import Screen from "../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import AppIcon from "../components/AppIcon";
+import AppText from "../components/AppText";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -17,41 +18,40 @@ const validationSchema = Yup.object().shape({
 
 function SignInScreen() {
   const [imageUri, setImageUri] = useState();
-  const [uploading, setUploading] = useState(false);
 
   const onSubmit = async (values) => {
     auth
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
+        const filename = imageUri.split("/").pop();
         uploadImage();
         //add user to users collection
         return fireDB.collection("users").doc(user.uid).set({
           email: values.email,
           nickName: values.nickName,
-          image: imageUri,
+          image: filename,
         });
       })
       .catch((error) => alert(error.message));
   };
 
   const uploadImage = async () => {
-    setUploading(true);
     const response = await fetch(imageUri);
     const blob = await response.blob();
-    // const filename = imageUri.substring(imageUri.lastIndexOf("/") + 1);
     const filename = imageUri.split("/").pop();
     const ref = storage.ref().child(filename).put(blob);
 
     try {
       await ref;
+      console.log("Uploaded image", filename);
+      return filename;
     } catch (error) {
       console.log(error);
     }
-    setUploading(false);
+    // setUploading(false);
     alert("Photo Uploaded succesfully");
     setImageUri(null);
-    // return filename;s
   };
 
   return (
@@ -83,6 +83,9 @@ function SignInScreen() {
             placeholder="nickName"
             textContentType="emailAddress"
           />
+          <AppText style={styles.text}>
+            Dont worry, you can change your nick name later
+          </AppText>
           <AppFormField
             autoCapitalize="none"
             autoCorrect={false}
@@ -97,11 +100,20 @@ function SignInScreen() {
             imageUri={imageUri}
             onChangeImage={(uri) => setImageUri(uri)}
           />
-          <SubmitButton title="Sign In" style={{ padding: 30 }} />
+          <AppText style={styles.text}>
+            Choose profile pic- you can change your pic later
+          </AppText>
+          <SubmitButton title="Sign In" />
         </AppForm>
       </ImageBackground>
     </Screen>
   );
 }
-
+const styles = StyleSheet.create({
+  text: {
+    color: "white",
+    fontSize: 14,
+    marginLeft: 10,
+  },
+});
 export default SignInScreen;

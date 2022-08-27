@@ -105,11 +105,9 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [logged, setLogged] = useState(false);
   useEffect(() => {
-    console.log("loo", logged);
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setLogged(user);
-        console.log("user", user);
       } else {
         setLogged(false);
         console.log("no user");
