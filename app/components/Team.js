@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 
   team: {
     borderRadius: 55,
-    marginBottom: 200,
+    marginBottom: 50,
     padding: 10,
     overflow: "hidden",
   },

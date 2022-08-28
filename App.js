@@ -9,17 +9,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { auth } from "./app/api/firebase";
 import "./app/api/firebase"; // Import the Firebase API configuration file
-// import firebase from "firebase";
-// import {
-//   API_KEY,
-//   AUTH_DOMAIN,
-//   DATABASE_URL,
-//   PROJECT_ID,
-//   STORAGE_BUCKET,
-//   MESSAGE_SENDER_ID,
-//   APP_ID,
-//   MEASUREMENT_ID,
-// } from "@env";
+
 import AppText from "./app/components/AppText";
 import AppButton from "./app/components/AppButton";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
@@ -29,6 +19,7 @@ import MyTeamsScreen from "./app/screens/MyTeamsScreen";
 import AccountScreen from "./app/screens/AccountScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import SignInScreen from "./app/screens/SignInScreen";
+// import CreateLeagueScreen from "./app/screens/CreateLeagueScreen";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import AppNavigator from "./app/navigation/AppNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
@@ -54,6 +45,7 @@ const StackNavigator = () => (
       screen={WelcomeScreen}
     />
     <Stack.Screen name="MyTeamsScreen" component={MyTeamsScreen} />
+    {/* <Stack.Screen name="CreateLeagueScreen" component={CreateLeagueScreen} /> */}
     {/* <Stack.Screen name="MyTeams" component={MyTeams} options={({route})=>({title:route.params.id})} /> */}
   </Stack.Navigator>
 );

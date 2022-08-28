@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ImageBackground, StyleSheet } from "react-native";
 import * as Yup from "yup";
 import ImageInput from "../components/forms/ImageInput";
-import { auth, storage, getDownloadURL } from "../api/firebase";
+import { auth, storage } from "../api/firebase";
 import { fireDB } from "../api/firebase";
 import Screen from "../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
@@ -29,6 +29,7 @@ function SignInScreen() {
         //add user to users collection
         return fireDB.collection("users").doc(user.uid).set({
           email: values.email,
+          password: values.password,
           nickName: values.nickName,
           image: filename,
         });

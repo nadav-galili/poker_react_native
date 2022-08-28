@@ -68,7 +68,7 @@ function AccountScreen({ navigation, screen }) {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setUserData(docSnap.data());
-          let imageRef = storage.ref(`/${docSnap.data().image}`);
+          let imageRef = await storage.ref(`/${docSnap.data().image}`);
           imageRef
             .getDownloadURL()
             .then((url) => {
@@ -100,8 +100,8 @@ function AccountScreen({ navigation, screen }) {
       >
         <View style={styles.container}>
           <ListItem
-            title={userData.nickName ? userData.nickName : "no user"}
-            subTitle={userData.email ? userData.email : "no email"}
+            title={userData?.nickName}
+            subTitle={userData?.email}
             image={{
               uri: url,
             }}
@@ -138,11 +138,11 @@ function AccountScreen({ navigation, screen }) {
 
 const styles = StyleSheet.create({
   screen: {
-    // backgroundColor: colors.primaryBlue,
     flex: 1,
   },
   container: {
-    marginVertical: 20,
+    marginVertical: 40,
+    marginTop: 0,
   },
 });
 

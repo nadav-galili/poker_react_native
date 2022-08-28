@@ -1,14 +1,11 @@
 import React from "react";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import AccountScreen from "../screens/AccountScreen";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
 import colors from "../config/colors";
-import MyTeamsNavigator from "./MyTeamsNavigator";
 import AccountNavigator from "./AccountNavigator";
-import WelcomeScreen from "../screens/WelcomeScreen";
+import MyTeamsNavigator from "./MyTeamsNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,11 +31,10 @@ const AppNavigator = () => (
           />
         ),
       }}
-      // user={user}
     />
     <Tab.Screen
-      name="My Teams"
-      component={MyTeamsScreen}
+      name="Leagues"
+      component={MyTeamsNavigator}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons
