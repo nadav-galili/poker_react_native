@@ -138,7 +138,8 @@ function AccountScreen({ navigation, screen }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.primaryBlue,
+    // backgroundColor: colors.primaryBlue,
+    flex: 1,
   },
   container: {
     marginVertical: 20,
