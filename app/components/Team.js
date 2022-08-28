@@ -30,6 +30,15 @@ function Team({ name, number, image, admin, players }) {
           <View style={styles.players}>
             <PlayerDetails image={players[0].image} name={players[0].name} />
             <PlayerDetails image={players[1].image} name={players[1].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[0].name} />
+            <PlayerDetails image={players[0].image} name={players[1].name} />
             {/* <PlayerDetails image={players[2].image} name={players[2].name} />
             <PlayerDetails image={players[3].image} name={players[3].name} /> 
              <PlayerDetails image={players[4].image} name={players[4].name} />

@@ -9,6 +9,7 @@ function AppIcon({ titleText }) {
       style={{
         alignSelf: "center",
         marginBottom: 10,
+        marginTop: 20,
       }}
     >
       <Image

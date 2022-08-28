@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, ImageBackground, View, Image, Text } from "react-native";
 import AppButton from "../components/AppButton";
 import colors from "../config/colors";
+import { auth } from "../api/firebase";
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
+  useEffect(() => {
+    const checkUserState = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("user", user);
+        navigation.replace("MyTeamsScreen");
+      } else {
+        console.log("no user");
+      }
+    });
+    return checkUserState;
+  }, []);
   return (
     <ImageBackground
       blurRadius={10}
@@ -15,8 +27,15 @@ function WelcomeScreen(props) {
         <Text style={styles.tagLine}>Poker - Underdog</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton title="login" />
-        <AppButton title="sign up" color="primaryPurple" />
+        <AppButton
+          title="login"
+          onPress={() => navigation.navigate("LoginScreen")}
+        />
+        <AppButton
+          title="sign up"
+          color="primaryPurple"
+          onPress={() => navigation.navigate("SignInScreen")}
+        />
       </View>
     </ImageBackground>
   );
@@ -29,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    padding: 20,
+    padding: 60,
     width: "80%",
   },
   logo: {
@@ -43,10 +62,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   tagLine: {
-    fontSize: 25,
-    fontWeight: "600",
+    fontSize: 40,
+    fontWeight: "700",
     paddingVertical: 20,
     color: colors.white,
+    borderBottomWidth: 3,
+    borderBottomColor: colors.white,
   },
 });
 

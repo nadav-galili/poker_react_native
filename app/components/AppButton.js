@@ -18,13 +18,13 @@ function AppButton({ title, onPress, color = "primaryBlue", iconName }) {
 
 const styles = StyleSheet.create({
   button: {
-    // backgroundColor: colors.primaryBlue,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
     paddiing: 15,
-    width: "100%",
-    marginVertical: 10,
+    marginHorizontal: 10,
+    // width: "90%",
+    marginVertical: 20,
     height: 40,
     flexDirection: "row",
   },

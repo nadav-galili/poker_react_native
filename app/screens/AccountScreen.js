@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, FlatList, ImageBackground } from "react-native";
+import { auth, fireDB, storage } from "../api/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
-import Screen from "../components/Screen";
-import ListItem from "../components/ListItem";
-import ListItemSeparatorComponent from "../components/ListItemSeparator";
 import colors from "../config/colors";
 import Icon from "../components/Icon";
+import ListItem from "../components/ListItem";
+import ListItemSeparatorComponent from "../components/ListItemSeparator";
+import routes from "../navigation/routes";
+import Screen from "../components/Screen";
 
 const menuItems = [
   {
@@ -14,35 +17,32 @@ const menuItems = [
       name: "format-list-bulleted",
       backgroundColor: colors.primaryBlue,
     },
+    targetScreen: routes.INSTRUCTIONS_SCREEN,
   },
-  {
-    title: "My Teams",
-    icon: {
-      name: "account-group-outline",
-      backgroundColor: colors.primaryPurple,
-    },
-  },
+  // {
+  //   title: "My Teams",
+  //   icon: {
+  //     name: "account-group-outline",
+  //     backgroundColor: colors.primaryPurple,
+  //   },
+  //   targetScreen: routes.MY_TEAMS,
+  // },
   {
     title: "Personal Stats & Profile",
     icon: {
       name: "account-outline",
       backgroundColor: colors.primaryOrange,
     },
+    targetScreen: routes.PERSONAL_STATS,
   },
-  {
-    title: "Join An Existing Team",
-    icon: {
-      name: "plus-box",
-      backgroundColor: colors.primaryPurple,
-    },
-  },
-  {
-    title: "Create A New Team",
-    icon: {
-      name: "creation",
-      backgroundColor: colors.primaryPink,
-    },
-  },
+  // {
+  //   title: "Join An Existing Team",
+  //   icon: {
+  //     name: "plus-box",
+  //     backgroundColor: colors.primaryPurple,
+  //   },
+  //   targetScreen:routes.JOIN_TEAM
+  // },
   // {
   //   title: "My Messages",
   //   icon: {
@@ -52,7 +52,46 @@ const menuItems = [
   // },
 ];
 
-function AccountScreen(props) {
+function AccountScreen({ navigation, screen }) {
+  const [userData, setUserData] = useState({});
+  const [url, setUrl] = useState();
+
+  const logOut = async () => {
+    await auth.signOut();
+    navigation.navigate("Welcome");
+  };
+
+  const fetchUserDetails = () => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const docRef = doc(fireDB, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+          let imageRef = storage.ref(`/${docSnap.data().image}`);
+          imageRef
+            .getDownloadURL()
+            .then((url) => {
+              setUrl(url);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      } else {
+        console.log("no user");
+      }
+    });
+    unsubscribe();
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
   return (
     <Screen style={styles.screen}>
       <ImageBackground
@@ -61,9 +100,11 @@ function AccountScreen(props) {
       >
         <View style={styles.container}>
           <ListItem
-            title="Barvaz"
-            subTitle="merellaw@gmail.com"
-            image={require("../assets/barvaz.jpg")}
+            title={userData.nickName ? userData.nickName : "no user"}
+            subTitle={userData.email ? userData.email : "no email"}
+            image={{
+              uri: url,
+            }}
           />
         </View>
         <View style={styles.container}>
@@ -80,6 +121,7 @@ function AccountScreen(props) {
                     backgroundColor={item.icon.backgroundColor}
                   />
                 }
+                onPress={() => navigation.navigate(item.targetScreen)}
               />
             )}
           />
@@ -87,6 +129,7 @@ function AccountScreen(props) {
         <ListItem
           title="Log Out"
           IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+          onPress={logOut}
         />
       </ImageBackground>
     </Screen>
