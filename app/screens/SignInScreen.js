@@ -24,7 +24,7 @@ function SignInScreen() {
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        const filename = imageUri.split("/").pop();
+        // const filename = imageUri.split("/").pop();
         uploadImage();
         //add user to users collection
         return fireDB.collection("users").doc(user.uid).set({

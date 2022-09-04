@@ -2,7 +2,6 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import MyTeamsScreen from "../screens/MyTeamsScreen";
 import colors from "../config/colors";
 import AccountNavigator from "./AccountNavigator";
 import MyTeamsNavigator from "./MyTeamsNavigator";
@@ -18,7 +17,6 @@ const AppNavigator = () => (
       headerShown: false,
     }}
   >
-    {/* <Tab.Screen name="WelcomeScreen" component={WelcomeScreen} /> */}
     <Tab.Screen
       name="My Account"
       component={AccountNavigator}

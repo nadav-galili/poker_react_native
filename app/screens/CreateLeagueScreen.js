@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import AppIcon from "../components/AppIcon";
 import * as Yup from "yup";
-import { storage, fireDB, doc } from "../api/firebase";
+import { storage, fireDB, functions } from "../api/firebase";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import ImageInput from "../components/forms/ImageInput";
-import generateLeagueNumber from "../config/generateLeagueNumber";
-import { collection, query, where, getDocs } from "firebase/firestore";
+// import generateLeagueNumber from "../config/generateLeagueNumber";
+// import { collection, query, where, getDocs } from "firebase/firestore";
 
 const validationSchema = Yup.object().shape({
   leagueName: Yup.string().required().min(2).label("leagueName"),
@@ -19,43 +19,56 @@ function CreateLeagueScreen() {
   const [imageUri, setImageUri] = useState();
   const onSubmit = async (values) => {
     console.log(values);
-    uploadImage();
-    while (true) {
-      // console.log("doc,", doc(fireDB, "leagues", generateRandomNumber()));
-      let randomNumber = Math.floor(1000 + Math.random() * (99999 - 1000 + 1));
-      const leagueRef = query(
-        collection(fireDB, "leagues"),
-        where("leagues", "==", randomNumber)
-      );
-
-      // console.log("rrr", docRef);
-      // const league = await getDoc(docRef);
-      console.log("leagues", leagueRef);
-      if (!leagueRef) return randomNumber;
-    }
-    const filename = imageUri.split("/").pop();
-    return fireDB.collection("leagues").doc(leagueNumber).set({
-      leagueName: values.leagueName,
-      image: filename,
-      leagueNumber: leagueNumber,
+    // console.log(functions);
+    const say = functions.httpsCallable("getTeamNum");
+    say().then((result) => {
+      console.log(result.data);
     });
+
+    // const number = functions.httpsCallable("getTeamNum");
+    // number();
+
+    // const leagueNumber = functions.httpsCallable("generateRandomLeagueNumber");
+    // leagueNumber(fireDB).then((result) => {
+    //   console.log("leagggggg", result.data);
+    //   return result.data;
+    // });
+
+    // const leagueRef = query(
+    //   collection(fireDB, "leagues"),
+    //   where("leagues", "==", randomNumber)
+    // );
+    // const querySnapshot = getDocs(leagueRef);
+    // console.log("rrr", querySnapshot);
+    // // const league = await getDocs(docRef);
+    // console.log("leaguesRef", leagueRef);
+    // // console.log("leagues", league);
+    // if (!leagueRef) return randomNumber;
+    // const filename = imageUri.split("/").pop();
+    // return fireDB.collection("leagues").doc(leagueNumber).set({
+    //   leagueName: values.leagueName,
+    //   image: filename,
+    //   leagueNumber: leagueNumber,
+    // });
+
+    // uploadImage();
   };
 
   const uploadImage = async () => {
     const response = await fetch(imageUri);
     const blob = await response.blob();
     const filename = imageUri.split("/").pop();
-    const ref = storage.ref("/leagues").child(filename).put(blob);
+    const ref = storage.ref("leagues").child(filename).put(blob);
 
     try {
       await ref;
       console.log("Uploaded image", filename);
       // return filename;
+      alert(`Photo:${filename} Uploaded succesfully`);
+      setImageUri(null);
     } catch (error) {
       console.log(error);
     }
-    alert("Photo Uploaded succesfully");
-    setImageUri(null);
   };
 
   return (
