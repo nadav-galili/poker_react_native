@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { StyleSheet, ImageBackground, ScrollView, View } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
+// import { createStackNavigator } from "@react-navigation/stack";
 
 import AppIcon from "../components/AppIcon";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import colors from "../config/colors";
-import Team from "../components/Team";
-import navigationTheme from "../navigation/navigationTheme";
+// import Team from "../components/Team";
+// import navigationTheme from "../navigation/navigationTheme";
 
 function MyTeams({ navigation }) {
-  const [teams, setTeams] = useState([]);
+  // const [teams, setTeams] = useState([]);
 
   return (
     <ImageBackground

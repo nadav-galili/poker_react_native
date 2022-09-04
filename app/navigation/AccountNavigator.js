@@ -6,7 +6,6 @@ import instructionsScreen from "../screens/InstructionsScreen";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
 import PersonalScreen from "../screens/PersonalScreen";
 import JoinTeamScreen from "../screens/JoinTeamScreen";
-// import CreateLeagueScreen from "../screens/CreateLeagueScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 
 const Stack = createStackNavigator();
@@ -19,7 +18,6 @@ const AccountNavigator = () => (
     <Stack.Screen name="Personal" component={PersonalScreen} />
     <Stack.Screen name="Join" component={JoinTeamScreen} />
     <Stack.Screen name="Welcome" component={WelcomeScreen} />
-    {/* <Stack.Screen name="CreateLeague" component={CreateLeagueScreen} /> */}
   </Stack.Navigator>
 );
 export default AccountNavigator;
