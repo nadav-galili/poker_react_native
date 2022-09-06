@@ -12,7 +12,10 @@ exports.genrateLeagueNumber = functions.https.onCall(async (data, context) => {
     if (!doc.exists) {
       admin.firestore().collection("leagues").doc(randomNumber.toString()).set({
         leagueNumber: randomNumber,
-        leagueName,
+        leagueName: leagueName,
+        leagueAdmin: "",
+        players: [],
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
       });
       return randomNumber;
     }

@@ -8,7 +8,6 @@ import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import ImageInput from "../components/forms/ImageInput";
-// import generateLeagueNumber from "../config/generateLeagueNumber";
 // import { collection, query, where, getDocs } from "firebase/firestore";
 
 const validationSchema = Yup.object().shape({
@@ -17,16 +16,22 @@ const validationSchema = Yup.object().shape({
 });
 function CreateLeagueScreen() {
   const [imageUri, setImageUri] = useState();
+
   const onSubmit = async (values) => {
     console.log(values);
-    // console.log(functions);
-    const say = functions.httpsCallable("getTeamNum");
-    say().then((result) => {
-      console.log(result.data);
+    const createLeague = functions.httpsCallable("genrateLeagueNumber");
+    const league = await createLeague({
+      leagueName: values.leagueName,
+      // imageUri: imageUri,
     });
-
-    // const number = functions.httpsCallable("getTeamNum");
-    // number();
+    uploadImage(league.data);
+    //   .then(
+    //   (result) => {
+    //     console.log("result", result.data);
+    //     uploadImage(result.data);
+    setImageUri(null);
+    //   }
+    // );
 
     // const leagueNumber = functions.httpsCallable("generateRandomLeagueNumber");
     // leagueNumber(fireDB).then((result) => {
@@ -54,23 +59,21 @@ function CreateLeagueScreen() {
     // uploadImage();
   };
 
-  const uploadImage = async () => {
+  const uploadImage = async (leagueNumber) => {
     const response = await fetch(imageUri);
     const blob = await response.blob();
-    const filename = imageUri.split("/").pop();
-    const ref = storage.ref("leagues").child(filename).put(blob);
+    // const filename = imageUri.split("/").pop();
+    const ref = storage.ref("leagues").child(leagueNumber).put(blob);
 
     try {
       await ref;
-      console.log("Uploaded image", filename);
+      console.log("Uploaded image", leagueNumber);
       // return filename;
-      alert(`Photo:${filename} Uploaded succesfully`);
-      setImageUri(null);
+      alert(`Photo:${leagueNumber} Uploaded succesfully`);
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <ImageBackground
       source={require("../assets/17450.jpg")}
