@@ -4,19 +4,28 @@ admin.initializeApp();
 
 exports.genrateLeagueNumber = functions.https.onCall(async (data, context) => {
   const leagueName = data.leagueName;
+  const uid = context.auth.uid;
+  const userRef = admin.firestore().collection("users").doc(uid);
+  const doc = await userRef.get();
+  const user = doc.data();
+
   while (true) {
     let randomNumber = Math.floor(1000 + Math.random() * (99999 - 1000 + 1));
     randomNumber = randomNumber.toString();
     const league = admin.firestore().collection("leagues").doc(randomNumber);
     const doc = await league.get();
     if (!doc.exists) {
-      admin.firestore().collection("leagues").doc(randomNumber.toString()).set({
-        leagueNumber: randomNumber,
-        leagueName: leagueName,
-        leagueAdmin: "",
-        players: [],
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      });
+      admin
+        .firestore()
+        .collection("leagues")
+        .doc(randomNumber.toString())
+        .set({
+          leagueNumber: randomNumber,
+          leagueName: leagueName,
+          leagueAdmin: { uid: uid, nickName: user.nickName, image: user.image },
+          players: [{ uid: uid, nickName: user.nickName, image: user.image }],
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        });
       return randomNumber;
     }
   }

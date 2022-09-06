@@ -2,61 +2,28 @@ import React, { useState } from "react";
 import { View, StyleSheet, ImageBackground } from "react-native";
 import AppIcon from "../components/AppIcon";
 import * as Yup from "yup";
-import { storage, fireDB, functions } from "../api/firebase";
+import { storage, functions } from "../api/firebase";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import ImageInput from "../components/forms/ImageInput";
-// import { collection, query, where, getDocs } from "firebase/firestore";
 
 const validationSchema = Yup.object().shape({
   leagueName: Yup.string().required().min(2).label("leagueName"),
   image: Yup.string().min(0).max(1, "Only one image is allowed."),
 });
+
 function CreateLeagueScreen() {
   const [imageUri, setImageUri] = useState();
 
   const onSubmit = async (values) => {
-    console.log(values);
     const createLeague = functions.httpsCallable("genrateLeagueNumber");
     const league = await createLeague({
       leagueName: values.leagueName,
-      // imageUri: imageUri,
     });
     uploadImage(league.data);
-    //   .then(
-    //   (result) => {
-    //     console.log("result", result.data);
-    //     uploadImage(result.data);
     setImageUri(null);
-    //   }
-    // );
-
-    // const leagueNumber = functions.httpsCallable("generateRandomLeagueNumber");
-    // leagueNumber(fireDB).then((result) => {
-    //   console.log("leagggggg", result.data);
-    //   return result.data;
-    // });
-
-    // const leagueRef = query(
-    //   collection(fireDB, "leagues"),
-    //   where("leagues", "==", randomNumber)
-    // );
-    // const querySnapshot = getDocs(leagueRef);
-    // console.log("rrr", querySnapshot);
-    // // const league = await getDocs(docRef);
-    // console.log("leaguesRef", leagueRef);
-    // // console.log("leagues", league);
-    // if (!leagueRef) return randomNumber;
-    // const filename = imageUri.split("/").pop();
-    // return fireDB.collection("leagues").doc(leagueNumber).set({
-    //   leagueName: values.leagueName,
-    //   image: filename,
-    //   leagueNumber: leagueNumber,
-    // });
-
-    // uploadImage();
   };
 
   const uploadImage = async (leagueNumber) => {
@@ -68,7 +35,6 @@ function CreateLeagueScreen() {
     try {
       await ref;
       console.log("Uploaded image", leagueNumber);
-      // return filename;
       alert(`Photo:${leagueNumber} Uploaded succesfully`);
     } catch (error) {
       console.log(error);
