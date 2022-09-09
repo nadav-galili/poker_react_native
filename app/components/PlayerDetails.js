@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet, View, TouchableHighlight } from "react-native";
+import { storage } from "../api/firebase";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
 
 function PlayerDetails({ image, name }) {
+  const [url, setUrl] = useState();
+  const imageRef = storage.ref(`/${image}`);
+  imageRef.getDownloadURL().then((url) => setUrl(url));
   return (
     <TouchableHighlight
       underlayColor={colors.light}
@@ -12,7 +16,11 @@ function PlayerDetails({ image, name }) {
       style={styles.players}
     >
       <View style={styles.container}>
-        <Image source={image} resizeMode="cover" style={styles.playerImage} />
+        <Image
+          source={{ uri: url }}
+          resizeMode="cover"
+          style={styles.playerImage}
+        />
         <AppText style={styles.playerName}>{name}</AppText>
       </View>
     </TouchableHighlight>

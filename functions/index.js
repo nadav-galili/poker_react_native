@@ -15,6 +15,7 @@ exports.genrateLeagueNumber = functions.https.onCall(async (data, context) => {
     const league = admin.firestore().collection("leagues").doc(randomNumber);
     const doc = await league.get();
     if (!doc.exists) {
+      ////Create league
       admin
         .firestore()
         .collection("leagues")
@@ -22,9 +23,17 @@ exports.genrateLeagueNumber = functions.https.onCall(async (data, context) => {
         .set({
           leagueNumber: randomNumber,
           leagueName: leagueName,
-          leagueAdmin: { uid: uid, nickName: user.nickName, image: user.image },
-          players: [{ uid: uid, nickName: user.nickName, image: user.image }],
+          leagueAdmin: { uid: uid, nickName: user.nickName },
+          players: [{ uid: uid, nickName: user.nickName }],
           createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        });
+      ////Add league to user
+      admin
+        .firestore()
+        .collection("users")
+        .doc(uid)
+        .update({
+          leagues: admin.firestore.FieldValue.arrayUnion(randomNumber),
         });
       return randomNumber;
     }

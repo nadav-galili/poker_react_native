@@ -67,18 +67,10 @@ function AccountScreen({ navigation, screen }) {
         const docRef = doc(fireDB, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
+          const imageRef = await storage.ref(`/${user.uid}`).getDownloadURL();
           setUserData(docSnap.data());
-          let imageRef = await storage.ref(`/${docSnap.data().image}`);
-          imageRef
-            .getDownloadURL()
-            .then((url) => {
-              setUrl(url);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          setUrl(imageRef);
         } else {
-          // doc.data() will be undefined in this case
           console.log("No such document!");
         }
       } else {

@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
   image: Yup.string().min(0).max(1, "Only one image is allowed."),
 });
 
-function CreateLeagueScreen() {
+function CreateLeagueScreen({ navigation }) {
   const [imageUri, setImageUri] = useState();
 
   const onSubmit = async (values) => {
@@ -24,6 +24,7 @@ function CreateLeagueScreen() {
     });
     uploadImage(league.data);
     setImageUri(null);
+    navigation.navigate("MyTeams");
   };
 
   const uploadImage = async (leagueNumber) => {

@@ -24,34 +24,30 @@ function SignInScreen() {
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        // const filename = imageUri.split("/").pop();
-        uploadImage();
+        uploadImage(user);
         //add user to users collection
+
         return fireDB.collection("users").doc(user.uid).set({
           email: values.email,
           password: values.password,
           nickName: values.nickName,
-          image: filename,
+          createdAt: new Date().toLocaleDateString(),
+          leagues: [],
         });
-      })
-      .catch((error) => alert(error.message));
+      });
   };
 
-  const uploadImage = async () => {
+  const uploadImage = async (user) => {
     const response = await fetch(imageUri);
     const blob = await response.blob();
-    const filename = imageUri.split("/").pop();
-    const ref = storage.ref().child(filename).put(blob);
+    const ref = storage.ref().child(user.uid).put(blob);
 
     try {
       await ref;
-      console.log("Uploaded image", filename);
-      return filename;
     } catch (error) {
       console.log(error);
     }
-    // setUploading(false);
-    alert("Photo Uploaded succesfully");
+    alert("Photo Uploaded succesfully", ref);
     setImageUri(null);
   };
 
