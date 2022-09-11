@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, ImageBackground } from "react-native";
+import { storage } from "../api/firebase";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
@@ -7,6 +8,9 @@ import PlayerDetails from "./PlayerDetails";
 import AppButton from "./AppButton";
 
 function Team({ name, number, image, admin, players }) {
+  const [url, setUrl] = useState();
+  const imageRef = storage.ref(`leagues/${image}`);
+  imageRef.getDownloadURL().then((url) => setUrl(url));
   return (
     <>
       <ImageBackground
@@ -21,14 +25,25 @@ function Team({ name, number, image, admin, players }) {
           }}
         >
           <View style={styles.detailsContainer}>
-            <Image resizeMode="contain" source={image} style={styles.image} />
+            <Image
+              resizeMode="contain"
+              source={{ uri: url }}
+              style={styles.image}
+            />
             <AppText style={styles.name}>Team Name: {name}</AppText>
             <AppText style={styles.number}>Team Number: {number}</AppText>
             <AppText style={styles.admin}>Admin: {admin}</AppText>
           </View>
 
           <View style={styles.players}>
-            <PlayerDetails image={players[0].uid} name={players[0].nickName} />
+            {players &&
+              players.map((player) => (
+                <PlayerDetails
+                  key={player.uid}
+                  image={player.uid}
+                  name={player.nickName}
+                />
+              ))}
           </View>
           <View style={styles.buttonContainer}>
             <AppButton title="Team Stats" iconName="account-group" />
