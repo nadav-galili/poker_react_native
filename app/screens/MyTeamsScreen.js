@@ -28,7 +28,6 @@ function MyTeams({ navigation }) {
         querySnapshot.forEach((doc) => {
           myLeagues.push(doc.data());
         });
-        console.log(myLeagues);
         setLeagues(myLeagues);
       }
     }
@@ -60,18 +59,16 @@ function MyTeams({ navigation }) {
           />
         </View>
         {leagues.length > 0 &&
-          leagues.map((league) => {
-            return (
-              <Team
-                key={league.leagueNumber}
-                name={league.leagueName}
-                number={league.leagueNumber}
-                image={league.leagueNumber}
-                admin={league.leagueAdmin.nickName}
-                players={league.players}
-              />
-            );
-          })}
+          leagues.map((league) => (
+            <Team
+              key={league.leagueNumber}
+              name={league.leagueName}
+              number={league.leagueNumber}
+              image={league.leagueNumber}
+              admin={league.leagueAdmin.nickName}
+              players={league.players}
+            />
+          ))}
       </ScrollView>
     </ImageBackground>
   );

@@ -1,14 +1,27 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, ImageBackground } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  TouchableWithoutFeedback,
+  Modal,
+  Button,
+} from "react-native";
 import { storage } from "../api/firebase";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
 import PlayerDetails from "./PlayerDetails";
 import AppButton from "./AppButton";
+import Icon from "./Icon";
+import Screen from "./Screen";
+import InvitePlayers from "./InvitePlayers";
 
 function Team({ name, number, image, admin, players }) {
   const [url, setUrl] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+
   const imageRef = storage.ref(`leagues/${image}`);
   imageRef.getDownloadURL().then((url) => setUrl(url));
   return (
@@ -33,6 +46,7 @@ function Team({ name, number, image, admin, players }) {
             <AppText style={styles.name}>Team Name: {name}</AppText>
             <AppText style={styles.number}>Team Number: {number}</AppText>
             <AppText style={styles.admin}>Admin: {admin}</AppText>
+            <AppText style={styles.playersHeader}>Players:</AppText>
           </View>
 
           <View style={styles.players}>
@@ -45,8 +59,22 @@ function Team({ name, number, image, admin, players }) {
                 />
               ))}
           </View>
+          <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+            <View style={styles.AddPlayers}>
+              <Icon
+                name={"account-plus-outline"}
+                backgroundColor={colors.primaryPurple}
+              />
+              <AppText style={styles.addPlayersText}>Add Players</AppText>
+            </View>
+          </TouchableWithoutFeedback>
           <View style={styles.buttonContainer}>
             <AppButton title="Team Stats" iconName="account-group" />
+            <AppButton
+              title="Start A New Game"
+              color="primaryPink"
+              iconName="poker-chip"
+            />
             <AppButton
               title="Edit Games"
               color="primaryPurple"
@@ -57,19 +85,27 @@ function Team({ name, number, image, admin, players }) {
               color="primaryOrange"
               iconName="shield-edit"
             />
-            <AppButton
-              title="Start A New Game"
-              color="primaryPink"
-              iconName="poker-chip"
-            />
           </View>
         </View>
+        <Modal visible={modalVisible} animationType="slide">
+          <Screen>
+            <Button title="Close" onPress={() => setModalVisible(false)} />
+            <InvitePlayers teamNumber={number} />
+          </Screen>
+        </Modal>
       </ImageBackground>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  AddPlayers: {
+    marginLeft: 20,
+  },
+  addPlayersText: {
+    color: colors.white,
+    fontSize: 12,
+  },
   admin: {
     color: colors.white,
     fontWeight: "bold",
@@ -77,15 +113,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     padding: 20,
-    width: "80%",
+    width: "90%",
     alignSelf: "center",
-    // backgroundColor: "#eae5e5",
     borderRadius: 15,
   },
   detailsContainer: {
     alignItems: "center",
-    // flex: 1,
-    // backgroundColor: "rgba(0,0,0,0.5)",
   },
   icon: {
     height: 90,
@@ -118,9 +151,12 @@ const styles = StyleSheet.create({
     padding: 5,
     width: "90%",
     alignSelf: "center",
-    // backgroundColor: "rgba(0,0,0,0.5)",
   },
-
+  playersHeader: {
+    color: colors.primaryPurple,
+    fontWeight: "bold",
+    textTransform: "capitalize",
+  },
   team: {
     borderRadius: 55,
     marginBottom: 50,
